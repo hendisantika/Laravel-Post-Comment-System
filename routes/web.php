@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,11 +22,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('post', 'PostController@create')->name('post.create');
-Route::post('post', 'PostController@store')->name('post.store');
-Route::get('/posts', 'PostController@index')->name('posts');
-Route::get('/article/{post:slug}', 'PostController@show')->name('post.show');
-Route::post('/comment/store', 'CommentController@store')->name('comment.add');
-Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
+Route::get('post', [PostController::class, 'create'])->name('post.create');
+Route::post('post', [PostController::class, 'store'])->name('post.store');
+Route::get('/posts', [PostController::class, 'index'])->name('posts');
+Route::get('/article/{post:slug}', [PostController::class, 'show'])->name('post.show');
+Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.add');
+Route::post('/reply/store', [CommentController::class, 'replyStore'])->name('reply.add');
